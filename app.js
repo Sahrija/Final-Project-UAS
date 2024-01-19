@@ -1,11 +1,23 @@
-const express = require('express')
-const app = express()
-const port = 3000
+// import express dan router
+const express = require("express");
+const router = require("./routes/api.js");
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+// import dotenv dan menjalankan method config
+require("dotenv").config();
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+// destructing object process.env
+const { APP_PORT } = process.env;
+
+// membuat object express
+const app = express();
+
+// menggunakan middleware
+app.use(express.json());
+
+// menggunakan routing (router)
+app.use(router);
+
+// mendefinisikan port
+app.listen(APP_PORT, () =>
+  console.log(`Server running at: http://localhost:${APP_PORT}`)
+);
